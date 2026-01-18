@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - AIRBORNE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-coll.css">
+    <link rel="icon" href="./images/icon1.jpg" type="image/x-icon">
+</head>
+<body>
+    <header class="top-bar">
+        <div class="logo">AIR<span>BORNE</span></div>
+        <nav class="nav-links">
+            <a href="./home.html">HOME</a>
+            <a href="./COLLECTION.html">COLLECTIONS</a>
+            <a href="./about.html">ABOUT</a>
+            <a href="./contact.html">CONTACT</a>
+            <a></a>
+            <a></a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="collection-header">
+            <h1>Our Fleet</h1>
+            <p>Explore our curated collection of the world's finest aircraft. Use the search below to find the perfect match for your mission.</p>
+        </section>
+
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search for aircraft (e.g., 'Gulfstream', 'Turboprop')...">
+            <button id="search-button">Search</button>
+        </div>
+
+        <section class="aircraft-grid" id="aircraft-listings">
+            <!-- Aircraft cards will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-col">
+            <h4>AIR<span>BORNE</span></h4>
+            <p>© 2026 AIRBORNE. All rights reserved.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="./about.html">About Us</a>
+            <a href="#">Careers</a>
+            <a href="#">Press</a>
+        </div>
+        <div class="footer-col">
+            <h4>Resources</h4>
+            <a href="#">Blog</a>
+            <a href="#">Help Center</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+            <h4>Connect</h4>
+            <div class="social-media">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const aircraftData = [
+            { name: "Gulfstream G700", type: "Business Jet", price: "$75,000,000", image: "./images/Business-Jet.jpg" },
+            { name: "Pilatus PC-12 NGX", type: "Turboprop", price: "$5,400,000", image: "./images/Fixed-wing Aircraft.jpg" },
+            { name: "Icon A5", type: "Amphibious", price: "$389,000", image: "./images/Amphibious-Airacraft.webp" },
+            { name: "Beechcraft Denali", type: "Turboprop", price: "Contact for Price", image: "./images/Beechcraft Denali.webp" },
+            { name: "Cessna Grand Caravan EX", type: "Turboprop", price: "$2,800,000", image: "./images/Cessna Grand Caravan EX.webp" },
+            { name: "Beechcraft King Air 260", type: "Turboprop", price: "$7,900,000", image: "./images/Beechcraft King Air 260.webp" },
+            { name: "Grumman Goose", type: "Amphibious", price: "$1,200,000", image: "./images/img1.jpg" },
+            { name: "de Havilland Dragon Rapide", type: "Vintage", price: "$850,000", image: "./images/img2.jpg" }
+        ];
+
+        const listingsGrid = document.getElementById('aircraft-listings');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+
+        function renderAircraft(aircraftArray) {
+            listingsGrid.innerHTML = '';
+            aircraftArray.forEach(craft => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${craft.image}" alt="${craft.name}">
+                    <div class="card-content">
+                        <h3>${craft.name}</h3>
+                        <p>A premier ${craft.type.toLowerCase()} aircraft, offering exceptional performance and comfort.</p>
+                        <div class="price">${craft.price}</div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                `;
+                listingsGrid.appendChild(card);
+            });
+        }
+
+        function filterAircraft() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filtered = aircraftData.filter(craft =>
+                craft.name.toLowerCase().includes(searchTerm) ||
+                craft.type.toLowerCase().includes(searchTerm)
+            );
+            renderAircraft(filtered);
+        }
+
+        searchButton.addEventListener('click', filterAircraft);
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                filterAircraft();
+            }
+        });
+
+        // Initial render
+        renderAircraft(aircraftData);
+    </script>
+</body>
+</html>
